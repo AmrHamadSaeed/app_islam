@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islam100/my_theme.dart';
+import 'package:islam100/providers/app_config_prvider.dart';
+import 'package:provider/provider.dart';
 
 class SebhaTap extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class _SebhaTapState extends State<SebhaTap> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return  Column(
       children: [
         Expanded(
@@ -41,10 +44,18 @@ class _SebhaTapState extends State<SebhaTap> {
                     },
                     child: Transform.rotate(
                       angle: turns,
-                        child: Image.asset(
+                        child:provider.isDarkMode()?
+                        Image.asset(
+                          'assets/images/dark_body_of_seb7a.png',
+                        )
+                            :
+                        Image.asset(
                           'assets/images/body_sebha_logo.png',
                         ))),
               ),
+              provider.isDarkMode()?
+              Image.asset('assets/images/dark_head_of_seb7a.png',)
+                  :
               Image.asset('assets/images/head_sebha_logo.png',),
             ],
           ),
@@ -53,7 +64,12 @@ class _SebhaTapState extends State<SebhaTap> {
           children: [
             Text(
               'عدد التسبيحات',
-              style: Theme.of(context).textTheme.titleMedium,
+              style:provider.isDarkMode()?
+              Theme.of(context).textTheme.titleMedium?.copyWith(
+                color: MyTheme.whiteColor
+              )
+                  :
+              Theme.of(context).textTheme.titleMedium,
             ),
             SizedBox(
               height: 5,
@@ -62,14 +78,23 @@ class _SebhaTapState extends State<SebhaTap> {
               height: MediaQuery.of(context).size.height*0.07,
              width:  MediaQuery.of(context).size.width*0.10,
               decoration: BoxDecoration(
-                color: MyTheme.primaryLightColorBottom,
+                color:provider.isDarkMode()?
+                MyTheme.primaryDarkColorBottom
+                    :
+                MyTheme.primaryLightColorBottom,
                 borderRadius: BorderRadius.circular(17),
               ),
               child: Center(
                 child: Text(
                   '$counter',
-                  style: Theme.of(context).textTheme.titleMedium,
+                  style:provider.isDarkMode()?
+                  Theme.of(context).textTheme.titleMedium?.copyWith(
+                      color: MyTheme.whiteColor
+                  )
+                      :
+                  Theme.of(context).textTheme.titleMedium,
                 ),
+
               ),
             ),
 
@@ -77,7 +102,10 @@ class _SebhaTapState extends State<SebhaTap> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    color: MyTheme.primaryLightColorBottom,
+                    color: provider.isDarkMode()?
+                    MyTheme.yellowColor
+                        :
+                    MyTheme.primaryLightColorBottom,
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: IconButton(onPressed: (){
@@ -98,13 +126,21 @@ class _SebhaTapState extends State<SebhaTap> {
                   height: MediaQuery.of(context).size.height*0.07,
                   width:  MediaQuery.of(context).size.width*0.50,
                   decoration: BoxDecoration(
-                    color: MyTheme.primaryLightColorBottom,
+                    color: provider.isDarkMode()?
+                    MyTheme.yellowColor
+                        :
+                    MyTheme.primaryLightColorBottom,
                     borderRadius: BorderRadius.circular(17),
                   ),
                   child: Center(
                     child: Text(
                       name2[index],
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: provider.isDarkMode()?
+                      Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: MyTheme.blackColor
+                      )
+                          :
+                      Theme.of(context).textTheme.titleMedium,
                     ),
                   ),
                 ),

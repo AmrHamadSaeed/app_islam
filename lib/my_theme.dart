@@ -5,6 +5,8 @@ class MyTheme{
   static Color blackColor = Color(0xff242424);
   static Color primaryLightColorBottom = Color(0xffB7935F);
   static Color whiteColor = Color(0xffffffff);
+  static Color primaryDarkColorBottom = Color(0xff141A2E);
+  static Color yellowColor = Color(0xffFACC1D);
   static ThemeData lightMode = ThemeData(
     primaryColor: primaryLightColorBottom,
      scaffoldBackgroundColor: Colors.transparent,
@@ -39,11 +41,11 @@ class MyTheme{
      ),
    );
   static ThemeData darkMode = ThemeData(
-    primaryColor: primaryLightColorBottom,
+    primaryColor: primaryDarkColorBottom,
      scaffoldBackgroundColor: Colors.transparent,
      appBarTheme: AppBarTheme(
        iconTheme: IconThemeData(
-         color: blackColor,
+         color: whiteColor,
        ),
        backgroundColor: Colors.transparent,
        elevation: 0,
@@ -53,21 +55,21 @@ class MyTheme{
        titleSmall: TextStyle(
          fontSize: 25,
          fontWeight: FontWeight.w400,
-         color: blackColor,
+         color: yellowColor,
        ),
        titleMedium: TextStyle(
          fontSize: 25,
          fontWeight: FontWeight.w400,
-         color: blackColor,
+         color: yellowColor,
        ),
        titleLarge: TextStyle(
          fontSize: 30.0,
          fontWeight: FontWeight.bold,
-         color: blackColor,
+         color: yellowColor,
        ),
      ),
      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-       selectedItemColor: blackColor,
+       selectedItemColor: yellowColor,
 
      ),
    );

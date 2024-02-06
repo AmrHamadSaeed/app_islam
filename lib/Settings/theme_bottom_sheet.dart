@@ -15,7 +15,17 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
     var provider = Provider.of<AppConfigProvider>(context);
 
     return Container(
-      margin: EdgeInsetsDirectional.all(15),
+      width: double.infinity,
+      height: MediaQuery.of(context).size.width*0.40,
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: provider.isDarkMode()?
+        MyTheme.primaryDarkColorBottom
+            :
+        MyTheme.primaryLightColorBottom,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -47,21 +57,35 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
     );
   }
   Widget getSelectedItemWidget(String text){
+    var provider = Provider.of<AppConfigProvider>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(text,
           style:Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Colors.blue,fontWeight: FontWeight.bold,
+            color:provider.isDarkMode()?
+            MyTheme.yellowColor
+                :
+            MyTheme.blackColor,
           ) ,
         ),
-        Icon(Icons.check,size: 30,color: MyTheme.primaryLightColorBottom,),
+        Icon(Icons.check,size: 30,
+          color:provider.isDarkMode()?
+          MyTheme.yellowColor
+              :
+          MyTheme.blackColor,),
       ],
     );
   }
   Widget getUnSelectedItemWidget(String text){
+    var provider = Provider.of<AppConfigProvider>(context);
     return Text(text,
-      style:Theme.of(context).textTheme.titleSmall ,
+      style:provider.isDarkMode()?
+      Theme.of(context).textTheme.titleSmall?.copyWith(
+        color: MyTheme.yellowColor
+      )
+          :
+      Theme.of(context).textTheme.titleSmall ,
     );
   }
 }
