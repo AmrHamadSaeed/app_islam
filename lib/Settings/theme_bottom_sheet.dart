@@ -16,17 +16,25 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
 
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.width*0.40,
-      padding: EdgeInsets.all(10),
+      height: MediaQuery.of(context).size.width*0.50,
+      padding: EdgeInsets.all(30),
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color: MyTheme.whiteColor,
+            spreadRadius: 0,
+            blurRadius: 20,
+          ),
+        ],
         color: provider.isDarkMode()?
         MyTheme.primaryDarkColorBottom
             :
         MyTheme.primaryLightColorBottom,
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           InkWell(
@@ -58,23 +66,74 @@ class _ThemeBottomSheetState extends State<ThemeBottomSheet> {
   }
   Widget getSelectedItemWidget(String text){
     var provider = Provider.of<AppConfigProvider>(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(text,
-          style:Theme.of(context).textTheme.titleSmall?.copyWith(
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.22,
+      height: MediaQuery.of(context).size.height * 0.08,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
             color:provider.isDarkMode()?
             MyTheme.yellowColor
                 :
-            MyTheme.blackColor,
-          ) ,
-        ),
-        Icon(Icons.check,size: 30,
-          color:provider.isDarkMode()?
-          MyTheme.yellowColor
-              :
-          MyTheme.blackColor,),
-      ],
+            Colors.black,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 5,
+            blurRadius: MediaQuery.of(context).size.height*0.03,
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width * 0.22,
+            height: MediaQuery.of(context).size.height * 0.08,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+
+            ),
+            child: Center(
+              child: Text(text,
+                style:Theme.of(context).textTheme.titleSmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color:provider.isDarkMode()?
+                  MyTheme.yellowColor
+                      :
+                  MyTheme.blackColor,
+                ) ,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: 10,
+              right: 10
+            ),
+            width: MediaQuery.of(context).size.width * 0.09,
+            height: MediaQuery.of(context).size.height * 0.05,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: provider.isDarkMode()?
+                  MyTheme.yellowColor
+                      :
+                  Colors.black,
+                  blurStyle: BlurStyle.outer,
+                  spreadRadius: 2,
+                  blurRadius: MediaQuery.of(context).size.height*0.01,
+                ),
+              ],
+            ),
+            child: Icon(Icons.check,size: 30,
+              color:provider.isDarkMode()?
+              MyTheme.yellowColor
+                  :
+              MyTheme.blackColor,),
+          ),
+        ],
+      ),
     );
   }
   Widget getUnSelectedItemWidget(String text){
