@@ -19,16 +19,34 @@ ItemSuraName({required this.name , required this.index});
             index: index),
         );
       },
-      child: Text(
-        name,
-        textAlign: TextAlign.center,
+      child: Container(
+        margin: EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: provider.isDarkMode()?
+              MyTheme.whiteColor
+                  :
+             MyTheme.primaryLightColorBottom,
+              blurStyle: BlurStyle.inner,
+              spreadRadius: 3,
+              blurRadius: MediaQuery.of(context).size.height * 0.02,
+            ),
+          ],
+        ),
 
-        style:provider.isDarkMode()?
-        Theme.of(context).textTheme.titleSmall?.copyWith(
-          color: MyTheme.yellowColor
-        )
-            :
-        Theme.of(context).textTheme.titleSmall,
+        child: Text(
+          name,
+          textAlign: TextAlign.center,
+
+          style:provider.isDarkMode()?
+          Theme.of(context).textTheme.titleSmall?.copyWith(
+            color: MyTheme.primaryDarkColorBottom
+          )
+              :
+          Theme.of(context).textTheme.titleSmall,
+        ),
       ),
     );
   }

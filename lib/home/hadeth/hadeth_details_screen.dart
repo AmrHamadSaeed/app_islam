@@ -35,27 +35,51 @@ class _HadethDetailsScreenState extends State<HadethDetailsScreen> {
       ),
       Scaffold(
         appBar: AppBar(
-          title: Text(
-            '${args.title}',
-            style:provider.isDarkMode()?
-            Theme.of(context).textTheme.titleLarge?.copyWith(
-              color: MyTheme.whiteColor
-            )
-                :
-            Theme.of(context).textTheme.titleLarge,
+          title: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color:  provider.isDarkMode()?
+                  MyTheme.whiteColor
+                      :
+                  MyTheme.blackColor,
+                  blurRadius: MediaQuery.of(context).size.height*0.01,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Text(
+                '${args.title}',
+                style:provider.isDarkMode()?
+                Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: MyTheme.primaryDarkColorBottom
+                )
+                    :
+                Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: MyTheme.whiteColor
+                )
+              ),
+            ),
           ),
         ),
         body: Container(
-          margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.06,
-            horizontal: MediaQuery.of(context).size.width * 0.07,
-          ),
+          margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color:provider.isDarkMode()?
-            MyTheme.primaryDarkColorBottom
-                :
-            MyTheme.whiteColor,
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: provider.isDarkMode()?
+                MyTheme.whiteColor
+                    :
+                MyTheme.blackColor,
+                blurStyle: BlurStyle.outer,
+
+                blurRadius: MediaQuery.of(context).size.width * 0.30,
+              ),
+            ],
           ),
           child: ListView.builder(
             itemBuilder: (context, index) {

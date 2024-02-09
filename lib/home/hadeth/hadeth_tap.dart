@@ -4,6 +4,7 @@ import 'package:islam100/home/hadeth/item_hadeth_name.dart';
 import 'package:islam100/my_theme.dart';
 import 'package:islam100/providers/app_config_prvider.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HadethTap extends StatefulWidget {
   @override
@@ -20,59 +21,106 @@ class _HadethTapState extends State<HadethTap> {
       loadFile();
     }
 
-    return Column(
-      children: [
-        Center(child: Image.asset('assets/images/hadeth_image.png')),
-        Divider(
-          color:provider.isDarkMode()?
-          MyTheme.yellowColor
-              :
-          Theme.of(context).primaryColor,
-          thickness: 3,
-        ),
-        Text(
-          'Hadeth Name',
-          style: provider.isDarkMode()?
-          Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: MyTheme.whiteColor
-          )
-              :
-          Theme.of(context).textTheme.titleMedium,
-        ),
-        Divider(
-          color:provider.isDarkMode()?
-          MyTheme.yellowColor
-              :
-          Theme.of(context).primaryColor,
-          thickness: 3,
-        ),
-        ahadethList.isEmpty?
-            Center(child: CircularProgressIndicator(
-              color:provider.isDarkMode()?
-              MyTheme.yellowColor
-                  :
-              Theme.of(context).primaryColor,
-            ),)
-            :
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color:provider.isDarkMode()?
+            MyTheme.whiteColor
+                :
+            Colors.black,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 4,
+            blurRadius: MediaQuery.of(context).size.height * 0.20,
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Center(
+              child: Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color:provider.isDarkMode()?
+                        MyTheme.yellowColor
+                            :
+                        MyTheme.primaryLightColorBottom,
+                        blurStyle: BlurStyle.inner,
 
-        Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context , index){
-              return  Divider(
+                        blurRadius: MediaQuery.of(context).size.width * 0.30,
+                      ),
+                    ],
+                  ),
+                  child: Image.asset('assets/images/hadeth_image.png'))),
+
+          Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color:provider.isDarkMode()?
+                  MyTheme.yellowColor
+                      :
+                  MyTheme.primaryLightColorBottom,
+                  blurStyle: BlurStyle.inner,
+                  spreadRadius: 3,
+                  blurRadius: MediaQuery.of(context).size.height * 0.01,
+                ),
+              ],
+            ),
+            child: Text(
+              AppLocalizations.of(context)!.hadeth_name,
+              style: provider.isDarkMode()?
+              Theme.of(context).textTheme.titleMedium?.copyWith(
+                  color: MyTheme.primaryDarkColorBottom,
+                  fontWeight: FontWeight.bold
+              )
+                  :
+              Theme.of(context).textTheme.titleMedium,
+            ),
+          ),
+          ahadethList.isEmpty?
+              Center(child: CircularProgressIndicator(
                 color:provider.isDarkMode()?
                 MyTheme.yellowColor
                     :
                 Theme.of(context).primaryColor,
-                thickness: 1,
-              );
-            },
-            itemBuilder: (context , index) {
-              return ItemHadethName(hadeth: ahadethList[index],);
-            },
-            itemCount: ahadethList.length,
+              ),)
+              :
+
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: provider.isDarkMode()?
+                    MyTheme.yellowColor
+                        :
+                    MyTheme.blackColor,
+                    blurStyle: BlurStyle.outer,
+                    spreadRadius: 5,
+                    blurRadius: MediaQuery.of(context).size.height * 0.10,
+                  ),
+                ],
+              ),
+              child: ListView.builder(
+                itemBuilder: (context , index) {
+                  return ItemHadethName(hadeth: ahadethList[index],);
+                },
+                itemCount: ahadethList.length,
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
