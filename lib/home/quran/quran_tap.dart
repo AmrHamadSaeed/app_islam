@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:islam100/home/quran/item_sura_name.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islam100/my_theme.dart';
+import 'package:islam100/providers/app_config_prvider.dart';
+import 'package:provider/provider.dart';
 class QuranTap extends StatelessWidget {
   List<String> suraName = [
     "الفاتحه",
@@ -121,34 +124,99 @@ class QuranTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Center(child: Image.asset('assets/images/quran_image.png')),
-        Divider(
-          color: Theme.of(context).primaryColor,
-          thickness: 3,
-        ),
-        Text(
-          AppLocalizations.of(context)!.sura_name,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        Divider(
-          color: Theme.of(context).primaryColor,
-          thickness: 3,
-        ),
-        Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context , index){
-              return  Divider(
-                color: Theme.of(context).primaryColor,
-                thickness: 1,
-              );
-            },
-              itemBuilder: (context , index) => ItemSuraName(name: suraName[index] , index: index),
-            itemCount: suraName.length,
+    var provider = Provider.of<AppConfigProvider>(context);
+    return Container(
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color:provider.isDarkMode()?
+            MyTheme.whiteColor
+                :
+            Colors.black,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 4,
+            blurRadius: MediaQuery.of(context).size.height * 0.20,
           ),
-        ),
-      ],
+        ],
+      ),
+      child: Column(
+        children: [
+          Center(
+              child: Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color:provider.isDarkMode()?
+                        MyTheme.yellowColor
+                            :
+                        MyTheme.primaryLightColorBottom,
+                        blurStyle: BlurStyle.outer,
+
+                        blurRadius: MediaQuery.of(context).size.width * 0.30,
+                      ),
+                    ],
+                  ),
+                  child: Image.asset('assets/images/quran_image.png'))),
+
+          Container(
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color:provider.isDarkMode()?
+                  MyTheme.yellowColor
+                      :
+                  MyTheme.primaryLightColorBottom,
+                  blurStyle: BlurStyle.inner,
+                  spreadRadius: 3,
+                  blurRadius: MediaQuery.of(context).size.height * 0.01,
+                ),
+              ],
+            ),
+            child: Text(
+              AppLocalizations.of(context)!.sura_name,
+              style:provider.isDarkMode()?
+             Theme.of(context).textTheme.titleMedium?.copyWith(
+               color: MyTheme.primaryDarkColorBottom,
+               fontWeight: FontWeight.bold,
+             )
+                  :
+              Theme.of(context).textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              )
+            ),
+          ),
+
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: provider.isDarkMode()?
+                    MyTheme.yellowColor
+                        :
+                    MyTheme.blackColor,
+                    blurStyle: BlurStyle.outer,
+                    spreadRadius: 5,
+                    blurRadius: MediaQuery.of(context).size.height * 0.10,
+                  ),
+                ],
+              ),
+              child: ListView.builder(
+                  itemBuilder: (context , index) => ItemSuraName(name: suraName[index] , index: index),
+                itemCount: suraName.length,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

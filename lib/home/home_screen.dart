@@ -7,6 +7,8 @@ import 'package:islam100/Settings/settings_tap.dart';
 import 'package:islam100/home/sebha/sebha_tap.dart';
 import 'package:islam100/my_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:islam100/providers/app_config_prvider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = 'Home Screen';
@@ -20,8 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<AppConfigProvider>(context);
     return Stack(
       children: [
+        provider.isDarkMode() ?
+    Image.asset(
+      'assets/images/back_ground_night.png',
+      width: double.infinity,
+      height: double.infinity,
+      fit: BoxFit.fill,
+    )
+            :
         Image.asset(
           'assets/images/background.png',
           width: double.infinity,
@@ -30,14 +41,34 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         Scaffold(
           appBar: AppBar(
-            title: Text(
-              AppLocalizations.of(context)!.app_title,
-              style: Theme.of(context).textTheme.titleLarge,
+            title: Container(
+              width: MediaQuery.of(context).size.width * 0.30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: MyTheme.whiteColor,
+                    blurRadius: MediaQuery.of(context).size.height*0.01,
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  AppLocalizations.of(context)!.app_title,
+                  style: provider.isDarkMode()?
+                  Theme.of(context).textTheme.titleLarge?.copyWith(
+                    color: MyTheme.primaryDarkColorBottom
+                  )
+                      :
+                  Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
             ),
           ),
           bottomNavigationBar: Theme(
             data: Theme.of(context).copyWith(
-              canvasColor: MyTheme.primaryLightColorBottom
+              canvasColor: Theme.of(context).primaryColor
             ),
             child: Container(
               decoration: BoxDecoration(

@@ -15,7 +15,27 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     var provider = Provider.of<AppConfigProvider>(context);
 
     return Container(
-      margin: EdgeInsetsDirectional.all(15),
+      width: double.infinity,
+      height: MediaQuery.of(context).size.width*0.50,
+      padding: EdgeInsets.all(30),
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color:provider.isDarkMode()?
+            MyTheme.whiteColor
+                :
+            Colors.black,
+            spreadRadius: 0,
+            blurRadius: 20,
+          ),
+        ],
+        color: provider.isDarkMode()?
+        MyTheme.primaryDarkColorBottom
+            :
+        MyTheme.primaryLightColorBottom,
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -47,21 +67,78 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
     );
   }
   Widget getSelectedItemWidget(String text){
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(text,
-          style:Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: Colors.blue,fontWeight: FontWeight.bold,
-          ) ,
-        ),
-        Icon(Icons.check,size: 30,color: MyTheme.primaryLightColorBottom,),
-      ],
+    var provider = Provider.of<AppConfigProvider>(context);
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.22,
+      height: MediaQuery.of(context).size.height * 0.08,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(15)),
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+            color:provider.isDarkMode()?
+            MyTheme.yellowColor
+                :
+            Colors.black,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 5,
+            blurRadius: MediaQuery.of(context).size.height*0.03,
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(text,
+            style:provider.isDarkMode()?
+            Theme.of(context).textTheme.titleSmall?.copyWith(
+              color: MyTheme.yellowColor,fontWeight: FontWeight.bold,
+            )
+                :
+            Theme.of(context).textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            ) ,
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                left: 10,
+              right: 10
+            ),
+            width: MediaQuery.of(context).size.width * 0.09,
+            height: MediaQuery.of(context).size.height * 0.05,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(15)),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: provider.isDarkMode()?
+                  MyTheme.yellowColor
+                      :
+                  MyTheme.blackColor,
+                  blurStyle: BlurStyle.outer,
+                  spreadRadius: 2,
+                  blurRadius: MediaQuery.of(context).size.height*0.01,
+                ),
+              ],
+            ),
+            child: Icon(Icons.check,size: 30,
+              color: provider.isDarkMode()?
+              MyTheme.yellowColor
+                  :
+            MyTheme.blackColor,
+            ),
+          ),
+        ],
+      ),
     );
   }
   Widget getUnSelectedItemWidget(String text){
+    var provider = Provider.of<AppConfigProvider>(context);
     return Text(text,
-      style:Theme.of(context).textTheme.titleSmall ,
+      style:provider.isDarkMode()?
+      Theme.of(context).textTheme.titleSmall?.copyWith(
+        color: MyTheme.yellowColor
+      )
+          :
+      Theme.of(context).textTheme.titleSmall ,
     );
   }
 }
